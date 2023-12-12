@@ -40,7 +40,10 @@ const center = {
 };
 
 export default function MyComponent() {
-  const { isLoaded } = useJsApiLoader({});
+  const { isLoaded } = useJsApiLoader({
+    id: "google-map-script",
+    googleMapsApiKey: 
+  });
 
   const [map, setMap] = useState(null);
 
