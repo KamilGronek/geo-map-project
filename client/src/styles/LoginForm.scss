@@ -1,0 +1,124 @@
+$gray: #808080;
+$light-blue: #61DBFB;
+$white: #ffffff;
+
+
+:root {
+    --primary-light-hsl: 200, 100%, 91%;
+    --primary-hsl: 200, 100%, 50%;
+    --primary-dark-hsl: 200, 100%, 6%;
+    --success-hsl: 100, 60%, 50%;
+    --error-hsl: 0, 60%, 50%;
+  }
+
+.container,
+.container-register{
+    display: flex;
+    flex-direction:column;
+    height: 470px;
+    width: 470px;
+    padding: 30px;
+    border-radius: 0 20px 20px 20px;
+    gap: 20px;
+    position: relative;
+}
+
+.container {
+    background-color: $gray;
+}
+
+.container-register{
+    background-color: $light-blue;
+}
+
+.container-noFound{
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+}
+
+.login-title {
+    z-index: 100;
+    padding: 0;
+}
+
+.logo_background {
+    position: absolute;
+    bottom: 180px;
+    right: 150px;
+    height: 560px;
+    opacity: 0.8;
+    clip-path: polygon(52% 50%,110% 50%,100% 100%,52% 110%);
+}
+
+.registerSpan{
+    color: gray;
+}
+
+.loginSpan{
+    color: $light-blue;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    z-index: 100;
+
+    label{
+        color: $white;
+        font-weight: lighter;
+    }
+
+    input {
+        font-size: 1.25rem;
+        padding: .5em;
+        border: none;
+        outline: none;
+        border-radius: .25em;
+        font-weight: lighter;
+    }
+}
+
+.show-warning {
+    display: flex;
+    justify-content: center;
+}
+
+hr.span-login {
+    background-color: $light-blue;
+    border: 1px solid $light-blue;
+    width: 30px;
+    height: px;
+}
+
+hr.span-register {
+    background-color: gray;
+    border: 1px solid gray;
+    width: 30px;
+    height: px;
+}
+
+.navLink,
+.navLink-register{
+    color: $white;
+}
+
+.navLink:hover{
+    color: $light-blue;
+}
+.navLink-register:hover{
+    color: $gray;
+}
+
+.input-group.success input {
+    box-shadow: 0 0 0 1px hsl(var(--success-hsl));
+}
+  
+.input-group.error input {
+    box-shadow: 0 0 0 1px hsl(var(--error-hsl));
+}
+  
+.input-group input:focus {
+    box-shadow: 0 0 0 1px hsl(var(--primary-hsl));
+}
