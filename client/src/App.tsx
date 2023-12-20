@@ -4,7 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import { Login } from "./components/form/Login";
 import { Register } from "./components/form/Register";
 import { Map } from "./components/pages/Map";
-import "./styles/App.css";
+// import "./styles/App.css";
 
 export default function App() {
   return (

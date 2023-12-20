@@ -1,16 +1,51 @@
-// import { useEffect, useContext } from "react";
-import { NavLink } from "react-router-dom";
+import { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import axios from "axios";
 import "../../styles/LoginForm.scss";
-// import { useLogin } from "../../../context/LoginContext";
+import { useMap } from "../../context/MapContext";
 
 export function Login() {
+  // const [loginUser, setLoginUser] = useState("");
+  const [passwordUser, setPasswordUser] = useState("");
+  const [showInfo, setShowInfo] = useState(false);
+  // const [confirmInfo, setConfirmInfo] = useState([]);
+  const [errorInfo, setErrorInfo] = useState("");
+  // const [alertLogout, setAlertLogout] = useState("");
+  const { setUserId, loginUser, setLoginUser } = useMap();
+
+  const toNavigate = useNavigate();
+
+  const handleLoginUser = async (e) => {
+    e.preventDefault();
+    const userLogin = {
+      loginUser,
+      passwordUser,
+    };
+
+    await axios
+      .post("http://localhost:4000/login", userLogin)
+      .then((response) => {
+        if (response.status === 201) {
+          setShowInfo(true);
+          // setConfirmInfo()
+          setUserId(response.data.rows[0].id);
+          // getLogin();
+          console.log(response.data.rows[0].id);
+
+          toNavigate("/map");
+          return response;
+        }
+      })
+      .catch((error) => {
+        setShowInfo(true);
+        setErrorInfo(error.response);
+        console.log(error.response);
+      });
+  };
+
   return (
     <>
-      <form
-        action="/login"
-        method="POST"
-        //   onSubmit={handleLoginUser}
-      >
+      <form action="/login" method="POST" onSubmit={handleLoginUser}>
         <div className="container">
           <img className="logo_background" src="react-icon.png" alt="" />
           <h2 className="login-title">
@@ -25,8 +60,8 @@ export function Login() {
               placeholder="Enter E-mail"
               required
               name="loginUser"
-              //   value={loginUser}
-              //   onChange={(e) => setLoginUser(e.target.value)}
+              value={loginUser}
+              onChange={(e) => setLoginUser(e.target.value)}
             />
           </div>
           <div className="input-group error">
@@ -38,25 +73,26 @@ export function Login() {
               placeholder="Enter Password"
               required
               name="passwordUser"
-              //   value={passwordUser}
-              //   onChange={(e) => setPasswordUser(e.target.value)}
+              value={passwordUser}
+              onChange={(e) => setPasswordUser(e.target.value)}
             />
             <>
-              {/* {showInfoWarming ? (
+              {showInfo ? (
                 <div className="show-warning">
-                  <span style={{ color: "red" }}> {warningError} </span>
+                  <span style={{ color: "red" }}> {errorInfo} </span>
                 </div>
               ) : (
                 <hr className="span-login" />
               )}
-              {alertLogout ? (
+              {showInfo ? (
                 <div className="show-warning">
-                  <span style={{ color: "green" }}>The session has ended</span>
+                  {/* <span style={{ color: "green" }}>{confirmInfo}</span> */}
                 </div>
               ) : (
                 ""
-              )} */}
+              )}
             </>
+
             <button type="submit">Login</button>
 
             <label>

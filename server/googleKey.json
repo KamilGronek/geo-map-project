@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "elegant-skein-407510",
+  "private_key_id": "0b0f1228578b4e6a4b322f3acd7db23bccec40b4",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQCjcjw9iH38y3s8\nY6pGpsuLNqC7d4copBdKCor9weOn8rWt7LAlTKn7w9kRM5mVqOymJECcWx7Jr394\noBIlzcOyIajboRKtyQma48QGPlkVMqVrYl2eQNY9lqVwdeXDZK5YN1lOMPHHMz4z\ndfpJdZ8vLZgzfaG2yPSEgXA4j0oOGAJ7YA6xEh1RiGwnJ5qSjQdROJU8Bu/lrJ8E\nvGr7GLHDV/jryNrwWyylh6IpbUGvCmmnJtWwoVzZ4RGbGDDX7z0lijP4CVK4BPCP\nXP1HWUOLIoOVLeF5RhBPQIX4ZuX9uepyYbBvIvZxhpwgd4omGu9x/9iWm/t3yqor\nNyDcABF3AgMBAAECggEAAUF17AUZ7rDDhB3B56QNaUbkqjwLWkkUcrmtArEUJiyr\nr6fjXI3/ulLxXnv2gJtZIheiNXFPxb3m7U7RhN/VUo+GpBVTNumV/M4mKeQdvBd1\nBOOvE3GtE7EOGVSWjM8/tabLNVoT6XNf1XZhE2JndC3V/wNGlEhr9H6oFY8oQv5y\nFJgHM23ERQSRlej5pm1R0kItkhlZzBvdjRYo91rR/bWlD/8By5ek1mATKpM8zJIA\nbTt2q2mNhyjFezxCAIt/6L3qNB00mbVi1CPe7ZSYHne8E+SD4+D5NsGyw3GI9kC6\nWAlKmcLYgZWUUrLeuRp6yYH4wbNTWTvFSPBaoOEXiQKBgQDYFjJxdUfPpEHYTClM\nFJ5X/FDdfP/CHV3ZwrDpK46N4Fu8nUbYoqe298CROfBDUcZAPu+P3Tg/Zv+xwzvR\nHJ58cCROZxAHWqs6g5qvwRHeokArwlMjdvL5lePafLJVQMy95gZdaoitBTPvIPJA\nKCjXcgiJQC+tEnDDbq25WaGBCQKBgQDBouYHQ/EZKav1fKWNlptts/vjVM3HGREq\n+HfHNJLcsJShKRojjk3OpW7Um+YM8922YWhjH9FgM21g20xdSi+6OvQIok6aeI8U\nGB1HcrFNfWxcls+qvgIzFGrlX5beoydXYI/g2KZafdIWW7RcDhzbwYzpTsEw4FVQ\n5OMcJDIefwKBgQCPFlu+v5+WwrkLRpuOEpUrxBu0HuKpIpMT8JT/QeV601dL1YWl\nTEfso7AzOn97xHmX71TpGd72NPkaOCKy/NWBpyyTcjGt/P8nlx/mQ93WY/BEScCN\n2mVYmkWwVyQryeYJ1XjfgP0SPUC/lzxy+WTaDVvTrtojK/PZpb+J3e1RKQKBgQC3\nAXErvq+322WU7sg8p/Gf3fIbKYQOPoe2N/xkPjDq+MyQABufLRgmTL4RnIHxDe4m\nN6uDu4eTxycB2mEy7jFrbdpD6rolTfnTwPKzGxetJ/PpEfOU6F2Fzy80N4KMSmCd\nOTriA4A9mBqdXPB57DCkFSpLOk5mFi8r9Bcc+qyPmwKBgQC0qo7arp4wxwr5y9eB\nRyLXJqa19w2oOW1yyGpEfoYMcOtzaqO1VjGKEXqkPVjq/rHubyDbMLf1i1qpFzAu\nk9pxaYPHsRP8SaA/wh/ataxsW6G1YBXSk8m7D9z32k/QDwz17M6XTym4dDfQG4WK\n94+8KvOH6b0lphZ7uj6Y28/CyQ==\n-----END PRIVATE KEY-----\n",
+  "client_email": "my-bucket-geo-map-project@elegant-skein-407510.iam.gserviceaccount.com",
+  "client_id": "116954487611375783577",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/my-bucket-geo-map-project%40elegant-skein-407510.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

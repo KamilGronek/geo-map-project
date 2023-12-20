@@ -8,6 +8,7 @@ export function Register() {
   const [registerUser, setRegisterUser] = useState("");
   const [passwordUser, setPasswordUser] = useState("");
   const [showInfo, setShowInfo] = useState(false);
+  const [confirmInfo, setConfirmInfo] = useState("");
   const [errorInfo, setErrorInfo] = useState();
 
   const handleCreateUser = async (e) => {
@@ -22,13 +23,14 @@ export function Register() {
       .then((response) => {
         if (response.status === 201) {
           setShowInfo(true);
+          setConfirmInfo(response.data);
           return response;
         }
       })
       .catch((error) => {
         setShowInfo(true);
-        setErrorInfo(error.message);
-        console.log(error.message);
+        setErrorInfo(error.response.data);
+        console.log(error);
       });
   };
 
@@ -67,7 +69,7 @@ export function Register() {
           <>
             {showInfo ? (
               <div className="show-info">
-                <span style={{ color: "green" }}> {} </span>
+                <span style={{ color: "green" }}> {confirmInfo} </span>
               </div>
             ) : (
               <hr className="span-register" />
