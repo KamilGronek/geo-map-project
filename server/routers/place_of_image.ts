@@ -54,7 +54,7 @@ router.post("/photo-place", async (req: Request, res: Response) => {
 
 router.get("/photo-place", (req: Request, res: Response) => {
   const placesOfPhoto =
-    'select pop.coordinates, pop.place_name, i.name, u.username from place_of_photo pop join image i on i.id = pop.image_id join "User" u on u.id = pop.user_id';
+    'select pop.coordinates, pop.place_name, i.name, i.link, u.username from place_of_photo pop join image i on i.id = pop.image_id join "User" u on u.id = pop.user_id';
   client.query(placesOfPhoto, (err: any, results: any) => {
     if (err) {
       console.log(err);

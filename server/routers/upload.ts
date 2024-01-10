@@ -49,9 +49,14 @@ router.post(
         const blob = bucket.file(req.file.originalname);
         const blobStream = blob.createWriteStream();
 
+        const fileUserId = req.body.userId;
+
+        console.log("id backend:", req.body.userId);
+
         const fileName = req.file.originalname;
         const fileMimetype = req.file.mimetype;
         const fileSize = req.file.size;
+
         // const fileContent = req.file.buffer.toString();
 
         // console.log("before: ", "blobStream.end(req.file.buffer)");
@@ -62,16 +67,33 @@ router.post(
           // Image saved in the cloud, now insert information into the database
 
           // Assuming you have a user_id, replace your_user_id_here
-          const user_id = 1;
+
+          // const user_id = 1;
+
+          const [cloudStorageLink] = await blob.getSignedUrl({
+            action: "read",
+            expires: "01-01-2030",
+          });
+
+          console.log("cloudStorageLink:", cloudStorageLink);
 
           const insertQuery =
-            "INSERT INTO image (user_id, name, type, weight) VALUES ($1, $2, $3, $4)";
+            "INSERT INTO image (user_id, name, type, weight, link) VALUES ($1, $2, $3, $4, $5) RETURNING id";
 
-          const values = [user_id, fileName, fileMimetype, fileSize];
+          const values = [
+            fileUserId,
+            fileName,
+            fileMimetype,
+            fileSize,
+            cloudStorageLink,
+          ];
 
           try {
-            await client.query(insertQuery, values);
-            res.status(200).send("Success");
+            const result = await client.query(insertQuery, values);
+            console.log("result: ", result);
+            res.status(200).send({
+              id: result.rows[0].id,
+            });
           } catch (error) {
             console.error("Error inserting image information:", error);
             res.status(500).send("Error inserting image information");
@@ -84,16 +106,5 @@ router.post(
     }
   }
 );
-
-router.get("/upload", (req: Request, res: Response) => {
-  client.query("SELECT * FROM image", (err: any, results: any) => {
-    if (err) {
-      console.log(err);
-    }
-
-    // console.log("upload res:", results);
-    res.send(results.rows);
-  });
-});
 
 export default router;

@@ -2,21 +2,31 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 import { useMap } from "../../context/MapContext";
+import { PhotoGallery } from "./PhotoGallery";
 
 export function MenuUploadPicture() {
   const { placeName, lat, lng, userId } = useMap();
 
-  const [files, setFile] = useState(null);
+  const [files, setFiles] = useState(null);
   const [progress, setProgress] = useState({ started: false, pc: 0 });
   const [message, setMessage] = useState("");
 
-  const [imagesIds, setimagesIds] = useState([]);
+  const [imagesIds, setImagesIds] = useState([] as number[]);
+  const [placesOfPhotos, setPlacesOfPhotos] = useState([]);
 
   console.log(imagesIds);
 
-  // useEffect(() => {
-  //   getPlacesOfPhotos();
-  // }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await getPlacesOfPhotos();
+      } catch (error) {
+        console.error("Error fetching places:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleSave = (e) => {
     handleUpload(e);
@@ -31,61 +41,65 @@ export function MenuUploadPicture() {
       return;
     }
 
-    const fd = new FormData();
+    const formdataArray = [] as FormData[];
+
     for (let i = 0; i < files.length; i++) {
-      fd.append(`imgFile ${i + 1}`, files[i]);
+      const fd = new FormData();
+      fd.append(`imgFile`, files[i]);
+      fd.append("userId", userId);
+      formdataArray.push(fd);
+      console.log("fd:", fd);
     }
 
     setMessage("Uploading...");
     setProgress((prevState) => {
       return { ...prevState, started: true };
     });
-    await axios
-      .post("http://localhost:4000/upload", fd, {
-        onUploadProgress: (progressEvent) => {
-          setProgress((prevState) => {
-            return { ...prevState, pc: progressEvent.progress * 100 };
-          });
-        },
-        headers: {
-          // "Custom-Header": "value",
-          "Content-Type": `multipart/form-data`,
-        },
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          setMessage("Upload successful");
-          console.log("uploaded:", response);
-          fetchPicture();
-        }
-      })
-      .catch((error) => {
-        setMessage("Upload failed");
-        console.log(error.message);
-      });
+    formdataArray.forEach(async (fd) => {
+      await axios
+        .post("http://localhost:4000/upload", fd, {
+          onUploadProgress: (progressEvent) => {
+            setProgress((prevState) => {
+              return { ...prevState, pc: progressEvent.progress * 100 };
+            });
+          },
+          headers: {
+            // "Custom-Header": "value",
+            "Content-Type": `multipart/form-data`,
+          },
+        })
+        .then((response) => {
+          if (response.status === 200) {
+            setMessage("Upload successful");
+            console.log("uploaded:", response.data.id);
+            // fetchPicture();
+            setImagesIds((prevImagesIds) => [
+              ...prevImagesIds,
+              response.data.id as number,
+            ]);
+          }
+        })
+        .catch((error) => {
+          setMessage("Upload failed");
+          console.log(error.message);
+        });
+    });
   };
 
-  const fetchPicture = async () => {
-    await axios
-      .get("http://localhost:4000/upload")
-      .then((response) => {
-        // const imageId = imagesIds[imagesIds.length - 1];
-        console.log(
-          "response.data:",
-          response.data[response.data.length - 1].id
-        );
-        // setimagesIds([...imagesIds, ...response.data.map((i) => i.id)]);
-        const imagesIdsToSave = [
-          response.data[response.data.length - 1].id,
-          response.data[response.data.length - 2].id,
-          response.data[response.data.length - 3].id,
-        ];
-        setimagesIds(imagesIdsToSave);
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
-  };
+  // const fetchPicture = async () => {
+  //   await axios
+  //     .get("http://localhost:4000/upload")
+  //     .then((response) => {
+  //       // const imageId = imagesIds[imagesIds.length - 1];
+  //       console.log(
+  //         "response.data:",
+  //         response.data[response.data.length - 1].id
+  //       );
+  //     })
+  //     .catch((error) => {
+  //       console.log(error.message);
+  //     });
+  // };
 
   const handlePhotoPlace = async () => {
     console.log("handle place photo");
@@ -113,7 +127,7 @@ export function MenuUploadPicture() {
       .then((response) => {
         if (response.status === 201) {
           console.log("photo-place:", response);
-          setimagesIds([]);
+          setImagesIds([]);
           getPlacesOfPhotos();
         }
       })
@@ -129,6 +143,7 @@ export function MenuUploadPicture() {
       .then((response) => {
         if (response.status === 200) {
           console.log("photo-place:", response);
+          setPlacesOfPhotos(response.data);
         }
       })
       .catch((error) => {
@@ -144,7 +159,7 @@ export function MenuUploadPicture() {
           <p>userId:{userId}</p>
           <input
             onChange={(e) => {
-              setFile(e.target.files);
+              setFiles(e.target.files);
             }}
             type="file"
             multiple
@@ -160,6 +175,7 @@ export function MenuUploadPicture() {
           )}
           {message && <span>{message}</span>}
         </form>
+        <PhotoGallery data={placesOfPhotos} />
       </nav>
     </>
   );

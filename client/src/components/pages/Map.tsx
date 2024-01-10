@@ -4,8 +4,6 @@ import "../../styles/App.css";
 import { MenuUploadPicture } from "../layout/MenuUploadBook";
 import { Header } from "../layout/Header";
 import { useMap } from "../../context/MapContext";
-// import dotenv from "dotenv";
-
 // dotenv.config();
 
 const containerStyle = {
@@ -41,10 +39,18 @@ export function Map() {
     },
   ];
 
+  localStorage.setItem("coordinates", JSON.stringify(coordinates));
+
+  const storedCoordinates = JSON.parse(
+    localStorage.getItem("coordinates") || "[]"
+  );
+
+  console.log("import:", process.env.REACT_APP_GOOGLE_MAPS_API_KEY);
   // const [latIng, setLatIng] = useState("");
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
+    googleMapsApiKey: " ";
   });
 
   const [map, setMap] = useState(null);
@@ -85,7 +91,7 @@ export function Map() {
           // containerElement={<div style={{ height: `100%` }} />}
           // mapElement={<div style={{ height: `100%` }} />}
         >
-          {coordinates.map((location) => (
+          {storedCoordinates.map((location) => (
             <Marker
               onClick={() =>
                 handleLocalization(location.id, location.lat, location.lng)
@@ -95,6 +101,7 @@ export function Map() {
                 lat: location.lat,
                 lng: location.lng,
               }}
+              // icon={{}}
             />
           ))}
           <></>
